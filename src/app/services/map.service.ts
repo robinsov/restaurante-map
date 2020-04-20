@@ -18,23 +18,24 @@ export class MapService {
  
 
   public coordenadas = new EventEmitter<any>();
-  lng: string;
-  lat: string;
+  lng: string = '';
+  lat: string = '';
 
   constructor(public http : HttpClient) {
     (mapboxgl as any).accessToken = environment.mapboxKey;
    }
 
    cargarRestaurantsFromCoordenadas(){
-     this.coordenadas.subscribe(resp => {
+     this.coordenadas.subscribe( resp => {
        this.lng = resp.lng;
        this.lat = resp.lat;
-      })
+     })
 
-      console.log(this.lat, this.lng);
+      console.log(this.lng, this.lat);
       
-      let url =  `${this.url}/search?lat=${this.lat}&lon=${this.lng}&count=10&radius=10&sort=rating&order=asc`;
-         return this.http.get(url, {headers: this.headers}).pipe( map ((resp:any) => {
+      let url =  `${this.url}/search?lat=${this.lat}&lon=${this.lng}&count=10&radius=1&sort=real_distance&order=desc`;
+      console.log(url);
+      return this.http.get(url, {headers: this.headers}).pipe( map ((resp:any) => {
            return resp.restaurants
          }))
   

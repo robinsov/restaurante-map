@@ -5,7 +5,7 @@ import * as MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import { RestaurantService } from "src/app/services/restaurant.service";
 import { Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
-import { environment } from 'src/environments/environment';
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-map-box",
@@ -21,6 +21,11 @@ export class MapBoxComponent implements OnInit {
   lat = 37.75;
   lng = -122.41;
   message = "hello world";
+
+
+  marker: mapboxgl.Marker;
+
+  coordinat = document.getElementById('coordinates');
 
   constructor(
     public mapService: MapService,
@@ -65,15 +70,16 @@ export class MapBoxComponent implements OnInit {
     //add map controls
     this.map.addControl(
       new MapboxGeocoder({
-      accessToken: environment.mapboxKey,
-      mapboxgl: mapboxgl
+        accessToken: environment.mapboxKey,
+        mapboxgl: mapboxgl,
       })
     );
+
     this.map.addControl(new mapboxgl.NavigationControl());
     this.map.addControl(new mapboxgl.FullscreenControl());
 
     //add marken on click
-    this.map.on("dblclick", (event) => {
+    this.map.on("click", (event) => {
       const coordinates = [event.lngLat.lng, event.lngLat.lat];
 
       let coorde = {
@@ -81,10 +87,27 @@ export class MapBoxComponent implements OnInit {
         lat: coordinates[1],
       };
 
-      console.log(coorde);
-
-      this.mapService.coordenadas.emit(coorde);
-      this.router.navigate(["/home", "map"]);
+      this.crarMarcador(coorde);
+      
     });
+  }
+
+  crarMarcador(coorde){
+    this.marker = new mapboxgl.Marker({
+      draggable: true,
+    })
+      .setLngLat([coorde.lng, coorde.lat])
+      .addTo(this.map);
+      
+      this.marker.on('dragend', ()=> {
+      var lngLat = this.marker.getLngLat();
+      console.log(lngLat);
+      this.mapService.coordenadas.emit(lngLat);
+    });
+    
+  }
+
+  buscarRestFromCoordenates() {
+    this.router.navigate(["/home", "map"]);
   }
 }

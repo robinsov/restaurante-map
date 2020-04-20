@@ -3,18 +3,22 @@
     <div class="row">
         <div class="col text-center">
             <h1 class="colorFont">
-                Selecciona donde quieres buscar restaurantes
+                Selecciona donde quieres buscar restaurantes y luego aceptar
             </h1>
+            <button class="btn btn-primary" (click)="buscarRestFromCoordenates()">
+                <i class="fa fa-arrow-right"></i>
+                Aceptar
+            </button>
         </div>
     </div>
 
 
 
-    <div class="row">
+    <div class="row mt-4">
         <div class="col">
 
             <div class="map" id="map"></div>
-
+            <pre id="coordinates" class="coordinat"></pre>
             <form #f="ngForm" (change)="cambios(f)" id="menu" class="colorFont">
                 <input type="radio" [(ngModel)]="rtoggle" name="rtoggle" value="streets-v11" checked="checked" />
                 <label class="radio-inline">streets</label>
