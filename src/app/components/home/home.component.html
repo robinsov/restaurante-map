@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+
+            <div class="jumbotron align-self-center">
+                <h1 class="display-4">Restaurantes en la zona</h1>
+                <p class="lead">Restaurantes mas emblematicos del mudno</p>
+                <p> Si deseas buscar restaurantes en una zona especficia da click en el mapa</p>
+                <button class="btn btn-primary" routerLink="/map">
+                    <i class="fa fa-map"></i>
+                    Mapa
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <app-loading *ngIf="loading"></app-loading>
+
+
+
+    <div class="row row-cols-1 row-cols-md-3">
+
+        <div class="col mb-4" *ngFor="let rest of restaurants">
+            <div class="card">
+                <div class="card-body pointer" (click)="getRestaurante(rest)">
+                    <h5 class="card-title"> Name: {{rest.restaurant.name}} </h5>
+                    <label class="badge badge-primary"> Location: </label>
+                    <p class="card-text">{{rest.restaurant.location['city']}}.</p>
+                    <label class="badge badge-primary"> Contact: </label>
+                    <p class="card-text">{{rest.restaurant.phone_numbers}}.</p>
+                    <label class="badge badge-primary"> Highlights: </label>
+
+                    <p *ngFor="let item of rest.restaurant.highlights">
+                        {{item}}
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

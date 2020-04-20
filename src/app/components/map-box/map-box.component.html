@@ -1,0 +1,33 @@
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="colorFont">
+                Selecciona donde quieres buscar restaurantes
+            </h1>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col">
+
+            <div class="map" id="map"></div>
+
+            <form #f="ngForm" (change)="cambios(f)" id="menu" class="colorFont">
+                <input type="radio" [(ngModel)]="rtoggle" name="rtoggle" value="streets-v11" checked="checked" />
+                <label class="radio-inline">streets</label>
+                <input type="radio" [(ngModel)]="rtoggle" name="rtoggle" value="light-v10" />
+                <label class="radio-inline">light</label>
+                <input type="radio" [(ngModel)]="rtoggle" name="rtoggle" value="dark-v10" />
+                <label class="radio-inline">dark</label>
+                <input type="radio" [(ngModel)]="rtoggle" name="rtoggle" value="outdoors-v11" />
+                <label class="radio-inline">outdoors</label>
+                <input type="radio" [(ngModel)]="rtoggle" name="rtoggle" value="satellite-v9" />
+                <label class="radio-inline">satellite</label>
+            </form>
+        </div>
+    </div>
+
+</div>
