@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'home/:source', component: HomeComponent },
   { path: 'restaurante/:pag/:id', component: RestauranteComponent },
   { path: 'map', component: MapBoxComponent },
-  { path: '**', pathMatch:'full', redirectTo: 'routePath' }
+  { path: '**', pathMatch:'full', redirectTo: 'home' }
 ];
 
 @NgModule({
